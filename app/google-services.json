@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "933670007583",
+    "firebase_url": "https://diamonds-fdfa6.firebaseio.com",
+    "project_id": "diamonds-fdfa6",
+    "storage_bucket": "diamonds-fdfa6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933670007583:android:7bfb7f2a4cee36557e762a",
+        "android_client_info": {
+          "package_name": "com.example.dietervanonckelenmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933670007583-e2k0atbgpmbi7si6qtmuu5k4s9o6ice5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dietervanonckelenmobile",
+            "certificate_hash": "050390e81e1219f63499c21ce13e2311181a0b1f"
+          }
+        },
+        {
+          "client_id": "933670007583-8p8vcqr2oji4a1r7rhe5omuon8790mnp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY0EsS41arjX4HSqUs27JedRTUvIWT0qY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933670007583-8p8vcqr2oji4a1r7rhe5omuon8790mnp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
