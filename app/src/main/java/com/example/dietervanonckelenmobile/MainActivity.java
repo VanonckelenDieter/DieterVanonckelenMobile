@@ -15,11 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
-import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.ButtonEnum;
-import com.nightonke.boommenu.Piece.PiecePlaceEnum;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,21 +24,22 @@ public class MainActivity extends AppCompatActivity {
     private EditText email;
     private Button button_register;
     private Button button_login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         email = (EditText) findViewById(R.id.signup_email_input);
-        password =(EditText) findViewById(R.id.signup_password_input);
-        button_register = (Button)findViewById(R.id.button_register);
-        button_login = (Button)findViewById(R.id.button_login);
+        password = (EditText) findViewById(R.id.signup_password_input);
+        button_register = (Button) findViewById(R.id.button_register);
+        button_login = (Button) findViewById(R.id.button_login);
         mAuth = FirebaseAuth.getInstance();
 
 
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v == button_register){
+                if (v == button_register) {
                     RegisterUser();
                 }
             }
@@ -50,21 +47,22 @@ public class MainActivity extends AppCompatActivity {
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v == button_login){
+                if (v == button_login) {
                     startActivity(new Intent(getApplicationContext(),
                             LoginActivity.class));
                 }
             }
         });
     }
-    public void RegisterUser(){
+
+    public void RegisterUser() {
         String Email = email.getText().toString().trim();
         String Password = password.getText().toString().trim();
-        if (TextUtils.isEmpty(Email)){
+        if (TextUtils.isEmpty(Email)) {
             Toast.makeText(this, "A Field is Empty", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(Password)){
+        if (TextUtils.isEmpty(Password)) {
             Toast.makeText(this, "A Field is Empty", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -81,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                                 finish();
                                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                            }else{
+                            } else {
                                 Toast.makeText(MainActivity.this, "Couldn't register, try again",
                                         Toast.LENGTH_SHORT).show();
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }

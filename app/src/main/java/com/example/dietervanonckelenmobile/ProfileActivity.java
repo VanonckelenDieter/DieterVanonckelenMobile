@@ -2,20 +2,17 @@ package com.example.dietervanonckelenmobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.nightonke.boommenu.BoomButtons.ButtonPlaceEnum;
-import com.nightonke.boommenu.BoomButtons.SimpleCircleButton;
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.ButtonEnum;
-import com.nightonke.boommenu.Piece.PiecePlaceEnum;
-
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -29,38 +26,54 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Email = (TextView)findViewById(R.id.profileEmail);
-        Uid = (TextView)findViewById(R.id.profileUid);
+        Email = (TextView) findViewById(R.id.profileEmail);
+        Uid = (TextView) findViewById(R.id.profileUid);
         mAuth = FirebaseAuth.getInstance();
-        logout = (Button)findViewById(R.id.button_logout);
+        logout = (Button) findViewById(R.id.Logout);
         user = mAuth.getCurrentUser();
-        BoomMenuButton bmb = (BoomMenuButton) findViewById(R.id.bmb);
-        bmb.setButtonEnum(ButtonEnum.SimpleCircle);
-        bmb.setPiecePlaceEnum(PiecePlaceEnum.DOT_3_1);
-        bmb.setButtonPlaceEnum(ButtonPlaceEnum.SC_3_1);
-        for (int i = 0; i < bmb.getButtonPlaceEnum().buttonNumber(); i++) {
-            bmb.addBuilder(new SimpleCircleButton.Builder()
-                    .normalImageRes(R.drawable.shape_oval_normal));
-        }
 
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v==logout){
-                    if (user != null) {
-                        mAuth.signOut();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                    }
-                }
-            }
-        });
-
-        if (user != null){
+        if (user != null) {
             String email = user.getEmail();
             String uid = user.getUid();
             Email.setText(email);
             Uid.setText(uid);
         }
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()) {
+            case R.id.Lessenrooster:
+                Intent intent = new Intent(this, LoginActivity.class);
+                this.startActivity(intent);
+                return true;
+            case R.id.Ureningeven:
+                // do your code
+                return true;
+            case R.id.Overzicht:
+                // do your code
+                return true;
+            case R.id.Logout:
+                logout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (v == logout) {
+                            if (user != null) {
+                                mAuth.signOut();
+                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            }
+                        }
+                    }
+                });
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

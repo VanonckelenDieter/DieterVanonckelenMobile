@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/Lessenrooster"
+        android:title="Lessenrooster" />
+    <item android:id="@+id/Ureningeven"
+        android:title="Uren ingeven" />
+    <item android:id="@+id/Overzicht"
+        android:title="Overzicht uren" />
+    <item android:id="@+id/Logout"
+        android:title="Log uit" />
+</menu>
