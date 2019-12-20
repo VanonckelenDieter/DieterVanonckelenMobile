@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/naam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Naam" />
+
+    <EditText
+        android:id="@+id/les"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Welke les" />
+
+    <EditText
+        android:id="@+id/uren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text= "Aantal uren?"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/datum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="Welke datum?"
+        android:inputType="date" />
+
+    <Button
+        android:id="@+id/indienen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Uren indienen" />
+</LinearLayout>

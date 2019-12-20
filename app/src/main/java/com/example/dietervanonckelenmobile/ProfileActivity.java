@@ -49,14 +49,16 @@ public class ProfileActivity extends AppCompatActivity {
         Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
             case R.id.Lessenrooster:
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(this, LessenRoosterActivity.class);
                 this.startActivity(intent);
                 return true;
             case R.id.Ureningeven:
-                // do your code
+                Intent intent2 = new Intent(this, UrenIngevenActivity.class);
+                this.startActivity(intent2);
                 return true;
             case R.id.Overzicht:
-                // do your code
+                Intent intent3 = new Intent(this, OverzichtUrenActivity.class);
+                this.startActivity(intent3);
                 return true;
             case R.id.Logout:
                 logout.setOnClickListener(new View.OnClickListener() {
