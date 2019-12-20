@@ -8,13 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class UrenIngevenActivity extends Activity {
-    private DatabaseReference mDatabase;
+public class UrenIngevenActivity extends AppCompatActivity {
     private EditText naam;
     private EditText les;
     private EditText uren;
@@ -24,7 +24,6 @@ public class UrenIngevenActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ureningeven);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         naam = findViewById(R.id.naam);
         les = findViewById(R.id.les);
         uren = findViewById(R.id.uren);
@@ -45,7 +44,6 @@ public class UrenIngevenActivity extends Activity {
 
     public void urenIngeven(EditText naam, EditText les, EditText uren, EditText datum) {
         UurObject nieuwUur = new UurObject(naam, les, uren, datum);
-        mDatabase.child("uren").child("test").setValue(nieuwUur);
     }
 }
 
