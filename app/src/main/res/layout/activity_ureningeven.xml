@@ -65,6 +65,21 @@
         android:ems="10"
         android:text=""
         android:inputType="date" />
+    <Button
+        android:id="@+id/button_choose_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:text="Kies foto"
+        android:layout_marginLeft="16dp" />
+    <ImageView
+        android:id="@+id/chosenImageView"
+        android:layout_width="match_parent"
+        android:layout_height="180dp" />
 
     <Button
         android:id="@+id/indienen"
@@ -76,6 +91,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:layout_marginTop="40dp"
+        android:clickable="true"
         android:text="Uren indienen" />
 
 </LinearLayout>

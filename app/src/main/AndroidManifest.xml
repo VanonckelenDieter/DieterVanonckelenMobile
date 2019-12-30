@@ -19,6 +19,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".UrenIngevenActivity"></activity>
+        <activity android:name=".OverzichtUrenActivity"></activity>
         <activity android:name=".LessenRoosterActivity"></activity>
     </application>
 </manifest>
