@@ -1,10 +1,12 @@
 package com.example.dietervanonckelenmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +36,7 @@ public class UrenIngevenActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ureningeven);
-
+        mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         userId = mAuth.getCurrentUser().getUid();
 
@@ -43,10 +45,10 @@ public class UrenIngevenActivity extends AppCompatActivity {
         uren = findViewById(R.id.uren);
         datum = findViewById(R.id.datum);
         indienen = findViewById(R.id.indienen);
-        parsedDatum = datum.toString();
-        parsedLes = les.toString();
-        parsedNaam = naam.toString();
-        parsedUren = uren.toString();
+        parsedDatum = datum.getText().toString();
+        parsedLes = les.getText().toString();
+        parsedNaam = naam.getText().toString();
+        parsedUren = uren.getText().toString();
 
 
 
@@ -64,6 +66,9 @@ public class UrenIngevenActivity extends AppCompatActivity {
         try {
             UurObject nieuwUur = new UurObject(naam, les, uren, datum);
             mDatabase.child("uren").child(userId).setValue(nieuwUur);
+            Toast.makeText(this, "De uren zijn opgeslagen", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ProfileActivity.class);
+            this.startActivity(intent);
         } catch (Exception e) {
             Log.e(TAG, "Received an exception after trying to write data to db :  " + e.getMessage());
         }
