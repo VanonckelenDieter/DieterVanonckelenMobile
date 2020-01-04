@@ -1,6 +1,7 @@
 package com.example.dietervanonckelenmobile;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ public class UrenIngevenActivity extends AppCompatActivity {
     private String parsedUren;
     private String parsedDatum;
     private String userId;
+    private static final String TAG = "Logging write to db";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,8 +61,12 @@ public class UrenIngevenActivity extends AppCompatActivity {
     }
 
     public void urenIngeven(String naam, String les, String uren, String datum) {
-        UurObject nieuwUur = new UurObject(naam, les, uren, datum);
-        mDatabase.child("uren").child(userId).setValue(nieuwUur);
+        try {
+            UurObject nieuwUur = new UurObject(naam, les, uren, datum);
+            mDatabase.child("uren").child(userId).setValue(nieuwUur);
+        } catch (Exception e) {
+            Log.e(TAG, "Received an exception after trying to write data to db :  " + e.getMessage());
+        }
     }
 }
 
