@@ -2,6 +2,7 @@ package com.example.dietervanonckelenmobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,16 +22,18 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView Email;
     private TextView Uid;
     private Button logout;
+    private static final String TAG = "Logging profileActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Email = (TextView) findViewById(R.id.profileEmail);
-        Uid = (TextView) findViewById(R.id.profileUid);
+        Email = findViewById(R.id.profileEmail);
+        Uid = findViewById(R.id.profileUid);
         mAuth = FirebaseAuth.getInstance();
-        logout = (Button) findViewById(R.id.Logout);
+        logout = findViewById(R.id.Logout);
         user = mAuth.getCurrentUser();
+        Log.d(TAG, "onCreate: profile activity rendered");
 
         if (user != null) {
             String email = user.getEmail();
@@ -49,17 +52,30 @@ public class ProfileActivity extends AppCompatActivity {
         Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
             case R.id.Lessenrooster:
-                Intent intent = new Intent(this, LessenRoosterActivity.class);
-                this.startActivity(intent);
-                return true;
+                try {
+                    Intent intent = new Intent(this, LessenRoosterActivity.class);
+                    this.startActivity(intent);
+                    return true;
+                } catch (Exception e) {
+                    Log.e(TAG, "Received an exception after trying to redirect to Lessenrooster page:  " + e.getMessage());
+
+                }
             case R.id.Ureningeven:
-                Intent intent2 = new Intent(this, UrenIngevenActivity.class);
-                this.startActivity(intent2);
-                return true;
+                try {
+                    Intent intent2 = new Intent(this, UrenIngevenActivity.class);
+                    this.startActivity(intent2);
+                    return true;
+                } catch (Exception e) {
+                    Log.e(TAG, "Received an exception after trying to redirect to Uren ingeven page:  " + e.getMessage());
+                }
             case R.id.Overzicht:
-                Intent intent3 = new Intent(this, OverzichtUrenActivity.class);
-                this.startActivity(intent3);
-                return true;
+                try {
+                    Intent intent3 = new Intent(this, OverzichtUrenActivity.class);
+                    this.startActivity(intent3);
+                    return true;
+                } catch (Exception e) {
+                    Log.e(TAG, "Received an exception after trying to redirect to overzicht uren page:  " + e.getMessage());
+                }
             case R.id.Logout:
                 logout.setOnClickListener(new View.OnClickListener() {
                     @Override

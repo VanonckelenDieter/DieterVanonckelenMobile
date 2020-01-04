@@ -1,4 +1,4 @@
-package info.camposha.firebaserecyclerimagesuploaddownload.Adapter;
+package com.example.dietervanonckelenmobile;
 
 import android.content.Context;
 import android.view.ContextMenu;
@@ -7,13 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.dietervanonckelenmobile.R;
-import com.example.dietervanonckelenmobile.UurObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -54,14 +50,12 @@ public  class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recyc
             View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 
         public TextView nameTextView,descriptionTextView,dateTextView;
-        public ImageView teacherImageView;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             nameTextView =itemView.findViewById (R.id.nameTextView );
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
-            teacherImageView = itemView.findViewById(R.id.teacherImageView);
 
             itemView.setOnClickListener(this);
             itemView.setOnCreateContextMenuListener(this);
