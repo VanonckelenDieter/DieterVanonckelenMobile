@@ -45,16 +45,14 @@ public class UrenIngevenActivity extends AppCompatActivity {
         uren = findViewById(R.id.uren);
         datum = findViewById(R.id.datum);
         indienen = findViewById(R.id.indienen);
-        parsedDatum = datum.getText().toString();
-        parsedLes = les.getText().toString();
-        parsedNaam = naam.getText().toString();
-        parsedUren = uren.getText().toString();
-
-
 
         indienen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                parsedDatum = datum.getText().toString();
+                parsedLes = les.getText().toString();
+                parsedNaam = naam.getText().toString();
+                parsedUren = uren.getText().toString();
                 if (v == indienen) {
                     urenIngeven(parsedNaam, parsedLes, parsedUren, parsedDatum);
                 }
@@ -66,6 +64,7 @@ public class UrenIngevenActivity extends AppCompatActivity {
         try {
             UurObject nieuwUur = new UurObject(naam, les, uren, datum);
             mDatabase.child("uren").child(userId).setValue(nieuwUur);
+            Log.d(TAG, "urenIngeven: " + nieuwUur);
             Toast.makeText(this, "De uren zijn opgeslagen", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, ProfileActivity.class);
             this.startActivity(intent);
