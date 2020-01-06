@@ -63,7 +63,8 @@ public class UrenIngevenActivity extends AppCompatActivity {
     public void urenIngeven(String naam, String les, String uren, String datum) {
         try {
             UurObject nieuwUur = new UurObject(naam, les, uren, datum);
-            mDatabase.child("uren").child(userId).setValue(nieuwUur);
+            DatabaseReference nieuwUurRef = mDatabase.child("uren").child(userId).push();
+            nieuwUurRef.setValue(nieuwUur);
             Log.d(TAG, "urenIngeven: " + nieuwUur);
             Toast.makeText(this, "De uren zijn opgeslagen", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, ProfileActivity.class);
