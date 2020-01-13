@@ -45,6 +45,7 @@ public class UrenIngevenActivity extends AppCompatActivity {
         uren = findViewById(R.id.uren);
         datum = findViewById(R.id.datum);
         indienen = findViewById(R.id.indienen);
+        Log.d(TAG, "onCreate: ingeven activity rendered");
 
         indienen.setOnClickListener(new View.OnClickListener() {
             @Override

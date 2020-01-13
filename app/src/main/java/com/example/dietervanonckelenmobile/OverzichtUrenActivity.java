@@ -1,5 +1,6 @@
 package com.example.dietervanonckelenmobile;
 
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -7,6 +8,8 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,22 +23,44 @@ public class OverzichtUrenActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
     private ListView dbObject;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+    private String[] myDataset = new String[]{"een", "twee", "drie"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_overzichturen);
+        setContentView(R.layout.activity_recycler_view);
 
-        dbObject = findViewById(R.id.urenOverzicht);
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference();
-        myRef.addValueEventListener(new ValueEventListener() {
+
+        recyclerView = findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new MyAdapter(myDataset);
+        recyclerView.setAdapter(mAdapter);
+        Log.d(TAG, "onCreate: overzicht activity rendered");
+
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showData(dataSnapshot);
-           /*     Map<UurObject, String> map = (Map<UurObject, String>) dataSnapshot.getValue();
-                dbObject.setText(map.toString());
-                System.out.println(map);*/
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    UurObject post = postSnapshot.getValue(UurObject.class);
+                }
+                Log.v(TAG, "TEST");
+
             }
 
             @Override
@@ -43,11 +68,5 @@ public class OverzichtUrenActivity extends AppCompatActivity {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         });
-    }
-
-    private void showData(DataSnapshot dataSnapshot) {
-        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            
-        }
     }
 }
