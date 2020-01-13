@@ -3,7 +3,6 @@ package com.example.dietervanonckelenmobile;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,17 +16,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class OverzichtUrenActivity extends AppCompatActivity {
 
     private static final String TAG = "OverzichtUren";
     private FirebaseDatabase mDatabase;
     private DatabaseReference myRef;
-    private ListView dbObject;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private String[] myDataset = new String[]{"een", "twee", "drie"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,19 +45,28 @@ public class OverzichtUrenActivity extends AppCompatActivity {
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        layoutManager = new LinearLayoutManager(this);
 
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
-        recyclerView.setAdapter(mAdapter);
+
         Log.d(TAG, "onCreate: overzicht activity rendered");
 
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<UurObject> objects = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    UurObject post = postSnapshot.getValue(UurObject.class);
+                    objects.add(postSnapshot.getValue(UurObject.class));
                 }
+                String[] array = new String[objects.size()];
+                int index = 0;
+                for (UurObject value : objects) {
+                    array[index] = String.valueOf(value);
+                }
+
+                mAdapter = new MyAdapter(array);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(mAdapter);
                 Log.v(TAG, "TEST");
 
             }
