@@ -4,19 +4,20 @@ package com.example.dietervanonckelenmobile;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OverzichtUrenActivity extends AppCompatActivity {
 
@@ -26,6 +27,8 @@ public class OverzichtUrenActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private FirebaseFirestore db;
+    private List<UurObject> urenList = new ArrayList<>();
 
 
     @Override
@@ -41,42 +44,31 @@ public class OverzichtUrenActivity extends AppCompatActivity {
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        layoutManager = new LinearLayoutManager(this);
+        mAdapter = new MyAdapter(urenList, this);
+        recyclerView.setAdapter(mAdapter);
+
 
 
         Log.d(TAG, "onCreate: overzicht activity rendered");
 
+        db = FirebaseFirestore.getInstance();
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<UurObject> objects = new ArrayList<>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                    objects.add(postSnapshot.getValue(UurObject.class));
-                }
-                String[] array = new String[objects.size()];
-                int index = 0;
-                Log.d(TAG, "onDataChange: " + array.toString());
-                for (UurObject value : objects) {
-                    array[index] = String.valueOf(value.getNaam());
-                }
-
-                mAdapter = new MyAdapter(array);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(mAdapter);
-                Log.v(TAG, "TEST");
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
-        });
+        db.collection("uren").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot object : list) {
+                                UurObject uur = object.toObject(UurObject.class);
+                                urenList.add(uur);
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 }

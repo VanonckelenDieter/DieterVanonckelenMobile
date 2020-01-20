@@ -8,9 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -69,21 +71,22 @@ public class UrenIngevenActivity extends AppCompatActivity {
     }
 
     public void urenIngeven(String naam, String les, String uren, String datum) {
-        try {
-            CollectionReference dbUren = db.collection("uren");
-            final UurObject object = new UurObject(naam, les, uren, datum);
-            dbUren.add(object).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Log.d(TAG, "urenIngeven: " + object);
-                    Toast.makeText(UrenIngevenActivity.this, "De uren zijn opgeslagen", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(UrenIngevenActivity.this, ProfileActivity.class);
-                    UrenIngevenActivity.this.startActivity(intent);
-                }
-            });
-        } catch (Exception e) {
-            Log.e(TAG, "Received an exception after trying to write data to db :  " + e.getMessage());
-        }
+        CollectionReference dbUren = db.collection("uren");
+        final UurObject object = new UurObject(naam, les, uren, datum);
+        dbUren.add(object).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d(TAG, "urenIngeven: succes ");
+                Toast.makeText(UrenIngevenActivity.this, "De uren zijn opgeslagen", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UrenIngevenActivity.this, ProfileActivity.class);
+                UrenIngevenActivity.this.startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "Received an exception after trying to write data to db :  " + e.getMessage());
+            }
+        });
     }
 }
 
