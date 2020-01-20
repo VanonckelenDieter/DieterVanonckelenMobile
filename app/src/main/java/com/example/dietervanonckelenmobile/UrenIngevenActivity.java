@@ -11,13 +11,18 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class UrenIngevenActivity extends AppCompatActivity {
 
+    private FirebaseFirestore db;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private EditText naam;
@@ -39,6 +44,8 @@ public class UrenIngevenActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         userId = mAuth.getCurrentUser().getUid();
+
+        db = FirebaseFirestore.getInstance();
 
         naam = findViewById(R.id.naam);
         les = findViewById(R.id.les);
@@ -63,13 +70,17 @@ public class UrenIngevenActivity extends AppCompatActivity {
 
     public void urenIngeven(String naam, String les, String uren, String datum) {
         try {
-            UurObject nieuwUur = new UurObject(naam, les, uren, datum);
-            DatabaseReference nieuwUurRef = mDatabase.child("uren").child(userId).push();
-            nieuwUurRef.setValue(nieuwUur);
-            Log.d(TAG, "urenIngeven: " + nieuwUur);
-            Toast.makeText(this, "De uren zijn opgeslagen", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ProfileActivity.class);
-            this.startActivity(intent);
+            CollectionReference dbUren = db.collection("uren");
+            final UurObject object = new UurObject(naam, les, uren, datum);
+            dbUren.add(object).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    Log.d(TAG, "urenIngeven: " + object);
+                    Toast.makeText(UrenIngevenActivity.this, "De uren zijn opgeslagen", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UrenIngevenActivity.this, ProfileActivity.class);
+                    UrenIngevenActivity.this.startActivity(intent);
+                }
+            });
         } catch (Exception e) {
             Log.e(TAG, "Received an exception after trying to write data to db :  " + e.getMessage());
         }

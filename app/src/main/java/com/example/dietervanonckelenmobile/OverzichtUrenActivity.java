@@ -56,12 +56,14 @@ public class OverzichtUrenActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<UurObject> objects = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
                     objects.add(postSnapshot.getValue(UurObject.class));
                 }
                 String[] array = new String[objects.size()];
                 int index = 0;
+                Log.d(TAG, "onDataChange: " + array.toString());
                 for (UurObject value : objects) {
-                    array[index] = String.valueOf(value);
+                    array[index] = String.valueOf(value.getNaam());
                 }
 
                 mAdapter = new MyAdapter(array);
