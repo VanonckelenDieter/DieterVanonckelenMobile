@@ -60,10 +60,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public MyViewHolder(LinearLayout ll) {
             super(ll);
-            name = ll.findViewById(R.id.name);
-            uur = ll.findViewById(R.id.uren);
-            les = ll.findViewById(R.id.les);
-            datum = ll.findViewById(R.id.datum);
+            name = ll.findViewById(R.id.nameR);
+            uur = ll.findViewById(R.id.urenR);
+            les = ll.findViewById(R.id.lesR);
+            datum = ll.findViewById(R.id.dateR);
         }
     }
 }
