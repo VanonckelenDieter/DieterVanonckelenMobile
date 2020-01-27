@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    tools:context=".UrenIngevenActivity">
+
+    <TextView
+        android:id="@+id/naamLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Naam"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/naam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/lesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Welke les?"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/les"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/aantalUrenLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Aantal uren?"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/uren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text=""
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/datumLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Datum"
+        android:textSize="10sp" />
+
+    <EditText
+        android:id="@+id/datum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:text=""
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/indienen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="#ff0000"
+        android:clickable="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Uren indienen"
+        android:textColor="#fff" />
+</LinearLayout>

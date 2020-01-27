@@ -45,7 +45,6 @@ public class OverzichtUrenActivity extends AppCompatActivity {
         icoon = findViewById(R.id.imageViewR);
 
 
-
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
@@ -56,11 +55,14 @@ public class OverzichtUrenActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
 
-
         Log.d(TAG, "onCreate: overzicht activity rendered");
 
         db = FirebaseFirestore.getInstance();
+        getData();
 
+    }
+
+    public void getData() {
         db.collection("uren").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -75,6 +77,11 @@ public class OverzichtUrenActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 }
