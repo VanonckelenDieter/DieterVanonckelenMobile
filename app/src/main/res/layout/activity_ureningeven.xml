@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textSize="30sp"
         android:text="Naam" />
 
     <EditText
@@ -20,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textSize="30sp"
         android:inputType="textPersonName"
         android:text="" />
     <TextView
@@ -27,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textSize="30sp"
         android:text="Welke les?" />
 
     <EditText
@@ -34,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textSize="30sp"
         android:inputType="textPersonName"
         android:text="" />
     <TextView
@@ -41,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textSize="30sp"
         android:text="Aantal uren?" />
 
     <EditText
@@ -49,11 +54,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:text= ""
+        android:textSize="30sp"
         android:inputType="number" />
     <TextView
         android:id="@+id/datumLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="30sp"
         android:layout_marginTop="10dp"
         android:text="Datum" />
 
@@ -62,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textSize="30sp"
         android:text=""
         android:inputType="date" />
     <Button
@@ -76,5 +84,4 @@
         android:layout_marginTop="40dp"
         android:clickable="true"
         android:text="Uren indienen" />
-
 </LinearLayout>

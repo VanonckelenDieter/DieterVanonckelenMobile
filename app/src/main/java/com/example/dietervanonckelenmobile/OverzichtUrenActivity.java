@@ -3,6 +3,7 @@ package com.example.dietervanonckelenmobile;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class OverzichtUrenActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseFirestore db;
+    private ImageView icoon;
     private List<UurObject> urenList = new ArrayList<>();
 
 
@@ -40,6 +42,9 @@ public class OverzichtUrenActivity extends AppCompatActivity {
         myRef = mDatabase.getReference();
 
         recyclerView = findViewById(R.id.my_recycler_view);
+        icoon = findViewById(R.id.imageViewR);
+
+
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -70,5 +75,6 @@ public class OverzichtUrenActivity extends AppCompatActivity {
                         }
                     }
                 });
+
     }
 }

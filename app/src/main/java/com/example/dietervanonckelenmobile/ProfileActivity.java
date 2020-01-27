@@ -20,7 +20,6 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private TextView Email;
-    private TextView Uid;
     private Button logout;
     private static final String TAG = "Logging profileActivity";
 
@@ -29,7 +28,6 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         Email = findViewById(R.id.profileEmail);
-        Uid = findViewById(R.id.profileUid);
         mAuth = FirebaseAuth.getInstance();
         logout = findViewById(R.id.Logout);
         user = mAuth.getCurrentUser();
@@ -39,7 +37,6 @@ public class ProfileActivity extends AppCompatActivity {
             String email = user.getEmail();
             String uid = user.getUid();
             Email.setText(email);
-            Uid.setText(uid);
         }
     }
 
@@ -77,18 +74,22 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.e(TAG, "Received an exception after trying to redirect to overzicht uren page:  " + e.getMessage());
                 }
             case R.id.Logout:
-                logout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (v == logout) {
-                            if (user != null) {
-                                mAuth.signOut();
-                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                try {
+                    logout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (v == logout) {
+                                if (user != null) {
+                                    mAuth.signOut();
+                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                }
                             }
                         }
-                    }
-                });
-                return true;
+                    });
+                    return true;
+                } catch (Exception e) {
+                    Log.e(TAG, "Received an exception after trying to logout:  " + e.getMessage());
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
