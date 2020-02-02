@@ -7,8 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button logout;
     private static final String TAG = "Logging profileActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +36,24 @@ public class ProfileActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         Log.d(TAG, "onCreate: profile activity rendered");
 
+        ToggleButton simpleToggleButton = findViewById(R.id.toggleButton);
+
+
+        simpleToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                } else {
+                }
+            }
+        });
+
+
         if (user != null) {
             String email = user.getEmail();
             String uid = user.getUid();
             Email.setText(email);
         }
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,13 +81,21 @@ public class ProfileActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e(TAG, "Received an exception after trying to redirect to Uren ingeven page:  " + e.getMessage());
                 }
-            case R.id.Overzicht:
+/*            case R.id.Overzicht:
                 try {
                     Intent intent3 = new Intent(this, OverzichtUrenActivity.class);
                     this.startActivity(intent3);
                     return true;
                 } catch (Exception e) {
                     Log.e(TAG, "Received an exception after trying to redirect to overzicht uren page:  " + e.getMessage());
+                }*/
+            case R.id.ItemList:
+                try {
+                    Intent intent4 = new Intent(this, ItemListActivity.class);
+                    this.startActivity(intent4);
+                    return true;
+                } catch (Exception e) {
+                    Log.e(TAG, "Received an exception after trying to redirect to itemlist page:  " + e.getMessage());
                 }
             case R.id.Logout:
                 try {

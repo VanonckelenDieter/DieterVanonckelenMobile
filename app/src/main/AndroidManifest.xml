@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dietervanonckelenmobile">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -24,5 +25,8 @@
         <activity android:name=".UrenIngevenActivity"></activity>
         <activity android:name=".OverzichtUrenActivity"></activity>
         <activity android:name=".LessenRoosterActivity"></activity>
+        <activity android:name=".MyAdapter" />
+        <activity android:name=".ItemListActivity"></activity>
+        <activity android:name=".ItemDetailActivity"></activity>
     </application>
 </manifest>

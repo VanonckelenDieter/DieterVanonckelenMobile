@@ -1,3 +1,4 @@
+/*
 package com.example.dietervanonckelenmobile;
 
 
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OverzichtUrenActivity extends AppCompatActivity {
+public class OverzichtUrenActivity extends FragmentActivity {
 
     private static final String TAG = "OverzichtUren";
     private FirebaseDatabase mDatabase;
@@ -45,13 +47,15 @@ public class OverzichtUrenActivity extends AppCompatActivity {
         icoon = findViewById(R.id.imageViewR);
 
 
+
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new MyAdapter(urenList, this);
+        mAdapter = new ItemListActivity.SimpleItemRecyclerViewAdapter(this , urenList, false);
         recyclerView.setAdapter(mAdapter);
 
 
@@ -85,3 +89,4 @@ public class OverzichtUrenActivity extends AppCompatActivity {
         getData();
     }
 }
+*/

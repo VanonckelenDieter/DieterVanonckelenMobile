@@ -8,4 +8,7 @@
         android:title="Overzicht uren" />
     <item android:id="@+id/Logout"
         android:title="Log uit" />
+    <item
+        android:id="@+id/ItemList"
+        android:title="Lijst van uren" />
 </menu>

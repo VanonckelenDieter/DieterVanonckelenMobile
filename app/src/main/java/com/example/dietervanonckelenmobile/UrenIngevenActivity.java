@@ -108,7 +108,7 @@ public class UrenIngevenActivity extends AppCompatActivity {
                 UrenIngevenActivity.this.startActivity(intent);
 
 
-                Intent notifyIntent = new Intent(UrenIngevenActivity.this, OverzichtUrenActivity.class);
+                Intent notifyIntent = new Intent(UrenIngevenActivity.this, ItemListActivity.class);
                 // Just a random request code /demonstration
                 int uniqueInt = (int) System.currentTimeMillis();
                 PendingIntent pendingIntent = PendingIntent.getActivity(UrenIngevenActivity.this, uniqueInt, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
