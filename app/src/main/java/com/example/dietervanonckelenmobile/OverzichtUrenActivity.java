@@ -47,15 +47,13 @@ public class OverzichtUrenActivity extends FragmentActivity {
         icoon = findViewById(R.id.imageViewR);
 
 
-
-
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new ItemListActivity.SimpleItemRecyclerViewAdapter(this , urenList, false);
+        mAdapter = new MyAdapter(urenList, this);
         recyclerView.setAdapter(mAdapter);
 
 

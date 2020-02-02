@@ -1,3 +1,4 @@
+/*
 package com.example.dietervanonckelenmobile;
 
 import android.app.Dialog;
@@ -91,4 +92,4 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             icoon = ll.findViewById(R.id.imageViewR);
         }
     }
-}
+}*/

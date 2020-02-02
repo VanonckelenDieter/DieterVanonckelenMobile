@@ -66,7 +66,7 @@ public class ItemListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
-        View recyclerView = findViewById(R.id.item_list);
+        View recyclerView = findViewById(R.id.item_list_id);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
     }
@@ -107,7 +107,6 @@ public class ItemListActivity extends AppCompatActivity {
         private ItemListActivity mParentActivity;
         private List<UurObject> mValues;
         private boolean mTwoPane;
-        private List<UurObject> mDataset;
         private View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,12 +141,15 @@ public class ItemListActivity extends AppCompatActivity {
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_list_content, parent, false);
-            return new ViewHolder(view);
+
+            final ViewHolder vh = new ViewHolder(view);
+
+            return vh;
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            UurObject object = mDataset.get(position);
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            UurObject object = urenList.get(position);
             holder.name.setText("Naam: " + object.getNaam());
             holder.uur.setText("Uren: " + object.getUren());
             holder.les.setText("Les: " + object.getLes());
