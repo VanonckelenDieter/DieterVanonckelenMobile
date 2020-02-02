@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dietervanonckelenmobile.dummy.DummyContent;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,18 +42,29 @@ public class ItemListActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseFirestore db;
     private List<UurObject> urenList = new ArrayList<>();
+    private Context context;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
 
+    public ItemListActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_list);
+        setContentView(R.layout.activity_item_list);
 
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference();
-
         db = FirebaseFirestore.getInstance();
         getData();
+        recyclerView = findViewById(R.id.item_list_id);
+        mAdapter = new SimpleItemRecyclerViewAdapter(this, urenList, mTwoPane);
+        recyclerView.setAdapter(mAdapter);
+        Log.d("TAG", "onCreate: overzicht activity rendered");
+
+
+
 
 
         if (findViewById(R.id.item_detail_container) != null) {
@@ -65,10 +74,6 @@ public class ItemListActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
-
-        View recyclerView = findViewById(R.id.item_list_id);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
     }
 
     public void getData() {
@@ -82,13 +87,10 @@ public class ItemListActivity extends AppCompatActivity {
                                 UurObject uur = object.toObject(UurObject.class);
                                 urenList.add(uur);
                             }
-/*
-                            SimpleItemRecyclerViewAdapter.notifyDataSetChanged();
-*/
+                            mAdapter.notifyDataSetChanged();
                         }
                     }
                 });
-
     }
 
     @Override
@@ -97,9 +99,6 @@ public class ItemListActivity extends AppCompatActivity {
         getData();
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, urenList, mTwoPane));
-    }
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
@@ -110,10 +109,10 @@ public class ItemListActivity extends AppCompatActivity {
         private View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                UurObject item = (UurObject) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
+                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.getDatum());
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -122,12 +121,14 @@ public class ItemListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
+                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.getDatum());
 
                     context.startActivity(intent);
                 }
             }
+
         };
+
 
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
                                       List<UurObject> items,
@@ -135,6 +136,7 @@ public class ItemListActivity extends AppCompatActivity {
             mValues = items;
             mParentActivity = parent;
             mTwoPane = twoPane;
+            Log.v("TEST", "test" + mValues.size());
         }
 
         @Override
@@ -149,7 +151,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            UurObject object = urenList.get(position);
+            UurObject object = mValues.get(position);
             holder.name.setText("Naam: " + object.getNaam());
             holder.uur.setText("Uren: " + object.getUren());
             holder.les.setText("Les: " + object.getLes());
