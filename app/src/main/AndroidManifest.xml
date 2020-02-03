@@ -23,9 +23,7 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".UrenIngevenActivity"></activity>
-        <activity android:name=".OverzichtUrenActivity"></activity>
         <activity android:name=".LessenRoosterActivity"></activity>
-        <activity android:name=".MyAdapter" />
         <activity android:name=".ItemListActivity"></activity>
         <activity android:name=".ItemDetailActivity"></activity>
     </application>

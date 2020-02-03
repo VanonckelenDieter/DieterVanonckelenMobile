@@ -4,11 +4,9 @@
         android:title="Lessenrooster" />
     <item android:id="@+id/Ureningeven"
         android:title="Uren ingeven" />
-    <item android:id="@+id/Overzicht"
-        android:title="Overzicht uren" />
-    <item android:id="@+id/Logout"
-        android:title="Log uit" />
     <item
         android:id="@+id/ItemList"
         android:title="Lijst van uren" />
+    <item android:id="@+id/Logout"
+        android:title="Log uit" />
 </menu>

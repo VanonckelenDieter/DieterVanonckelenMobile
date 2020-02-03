@@ -107,22 +107,25 @@ public class ItemListActivity extends AppCompatActivity {
         private List<UurObject> mValues;
         private boolean mTwoPane;
         private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 UurObject item = (UurObject) view.getTag();
+                Log.v("GETTAG", String.valueOf(view.getId()));
                 if (mTwoPane) {
+                    Log.v("if", "in if");
                     Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.getDatum());
+                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(view.getId()));
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.item_detail_container, fragment)
                             .commit();
                 } else {
+                    Log.v("else", "in else");
                     Context context = view.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.getDatum());
-
+                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(item.getNaam()));
                     context.startActivity(intent);
                 }
             }
@@ -136,7 +139,6 @@ public class ItemListActivity extends AppCompatActivity {
             mValues = items;
             mParentActivity = parent;
             mTwoPane = twoPane;
-            Log.v("TEST", "test" + mValues.size());
         }
 
         @Override
@@ -145,7 +147,6 @@ public class ItemListActivity extends AppCompatActivity {
                     .inflate(R.layout.item_list_content, parent, false);
 
             final ViewHolder vh = new ViewHolder(view);
-
             return vh;
         }
 
@@ -169,7 +170,9 @@ public class ItemListActivity extends AppCompatActivity {
             }
 
             holder.itemView.setTag(mValues.get(position));
+            holder.itemView.setId(position);
             holder.itemView.setOnClickListener(mOnClickListener);
+            Log.v("LOL", String.valueOf(position));
         }
 
         @Override

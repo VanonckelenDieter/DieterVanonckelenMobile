@@ -81,18 +81,10 @@ public class ProfileActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e(TAG, "Received an exception after trying to redirect to Uren ingeven page:  " + e.getMessage());
                 }
-/*            case R.id.Overzicht:
-                try {
-                    Intent intent3 = new Intent(this, OverzichtUrenActivity.class);
-                    this.startActivity(intent3);
-                    return true;
-                } catch (Exception e) {
-                    Log.e(TAG, "Received an exception after trying to redirect to overzicht uren page:  " + e.getMessage());
-                }*/
             case R.id.ItemList:
                 try {
-                    Intent intent4 = new Intent(this, ItemListActivity.class);
-                    this.startActivity(intent4);
+                    Intent intent3 = new Intent(this, ItemListActivity.class);
+                    this.startActivity(intent3);
                     return true;
                 } catch (Exception e) {
                     Log.e(TAG, "Received an exception after trying to redirect to itemlist page:  " + e.getMessage());

@@ -1,12 +1,21 @@
 package com.example.dietervanonckelenmobile;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class UurObject {
     private String naam;
     private String les;
     private String uren;
     private String datum;
     private int positie;
+
+    public static final List<UurObject> ITEMS = new ArrayList<>();
+    public static final Map<String, UurObject> ITEM_MAP = new HashMap<String, UurObject>();
+
 
 
     // Plain Old Java Object
@@ -28,6 +37,7 @@ public class UurObject {
         this.uren = uren;
         this.datum = datum;
     }
+
 
     public String getNaam() {
         return naam;
