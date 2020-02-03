@@ -2,6 +2,7 @@ package com.example.dietervanonckelenmobile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,14 +46,20 @@ public class ItemListActivity extends AppCompatActivity {
     private Context context;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
-
-    public ItemListActivity() {
-    }
+    private static final String TAG = "OverzichtUren";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setTitle("Overzicht van de uren");
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.i(TAG, "In landscape mode");
+            mTwoPane = true;
+        }
 
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference();
@@ -111,21 +118,27 @@ public class ItemListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 UurObject item = (UurObject) view.getTag();
-                Log.v("GETTAG", String.valueOf(view.getId()));
                 if (mTwoPane) {
-                    Log.v("if", "in if");
                     Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(view.getId()));
+                    arguments.putString("naam", item.getNaam());
+                    arguments.putString("datum", item.getDatum());
+                    arguments.putString("les", item.getLes());
+                    arguments.putString("uren", item.getUren());
+
+
+
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.item_detail_container, fragment)
+                            .replace(R.id.item_detail_container_land, fragment)
                             .commit();
                 } else {
-                    Log.v("else", "in else");
                     Context context = view.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(item.getNaam()));
+                    intent.putExtra("naam", item.getNaam());
+                    intent.putExtra("datum", item.getDatum());
+                    intent.putExtra("les", item.getLes());
+                    intent.putExtra("uren", item.getUren());
                     context.startActivity(intent);
                 }
             }
