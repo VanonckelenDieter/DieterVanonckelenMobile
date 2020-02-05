@@ -32,7 +32,7 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.item_detail, container, false);
+        View rootView = inflater.inflate(R.layout.activity_item_detail, container, false);
 
         name = rootView.findViewById(R.id.nameR);
         date = rootView.findViewById(R.id.dateR);
@@ -53,7 +53,6 @@ public class ItemDetailFragment extends Fragment {
             Log.i(TAG, "Data successfully retrieved");
 
         }
-
         return rootView;
     }
 }

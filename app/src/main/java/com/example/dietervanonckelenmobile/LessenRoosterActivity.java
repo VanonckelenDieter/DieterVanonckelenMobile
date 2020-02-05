@@ -20,8 +20,6 @@ public class LessenRoosterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lessenrooster);
 
-
-
         Calendar calendar = Calendar.getInstance();
         events.add(new EventDay(calendar, R.drawable.ic_verified));
         CalendarView calendarView = findViewById(R.id.calenderView);

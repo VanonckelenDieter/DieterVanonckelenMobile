@@ -43,7 +43,6 @@ public class ItemListActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseFirestore db;
     private List<UurObject> urenList = new ArrayList<>();
-    private Context context;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private static final String TAG = "OverzichtUren";
@@ -71,14 +70,7 @@ public class ItemListActivity extends AppCompatActivity {
         Log.d("TAG", "onCreate: overzicht activity rendered");
 
 
-
-
-
         if (findViewById(R.id.item_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             mTwoPane = true;
         }
     }
@@ -113,6 +105,8 @@ public class ItemListActivity extends AppCompatActivity {
         private ItemListActivity mParentActivity;
         private List<UurObject> mValues;
         private boolean mTwoPane;
+
+
         private View.OnClickListener mOnClickListener = new View.OnClickListener() {
 
             @Override
@@ -130,7 +124,7 @@ public class ItemListActivity extends AppCompatActivity {
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.item_detail_container_land, fragment)
+                            .replace(R.id.item_detail_land, fragment)
                             .commit();
                 } else {
                     Context context = view.getContext();
@@ -144,7 +138,6 @@ public class ItemListActivity extends AppCompatActivity {
             }
 
         };
-
 
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
                                       List<UurObject> items,

@@ -27,8 +27,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
-
-        // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -62,7 +60,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            NavUtils.navigateUpTo(this, new Intent(this, ItemListActivity.class));
+            NavUtils.navigateUpTo(this, new Intent(this, ProfileActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
