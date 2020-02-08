@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,18 +32,6 @@ public class ProfileActivity extends AppCompatActivity {
         logout = findViewById(R.id.Logout);
         user = mAuth.getCurrentUser();
         Log.d(TAG, "onCreate: profile activity rendered");
-
-        ToggleButton simpleToggleButton = findViewById(R.id.toggleButton);
-
-
-        simpleToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                } else {
-                }
-            }
-        });
-
 
         if (user != null) {
             String email = user.getEmail();
@@ -90,21 +75,9 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.e(TAG, "Received an exception after trying to redirect to itemlist page:  " + e.getMessage());
                 }
             case R.id.Logout:
-                try {
-                    logout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (v == logout) {
-                                if (user != null) {
-                                    mAuth.signOut();
-                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                                }
-                            }
-                        }
-                    });
-                    return true;
-                } catch (Exception e) {
-                    Log.e(TAG, "Received an exception after trying to logout:  " + e.getMessage());
+                if (user != null) {
+                    mAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
             default:
                 return super.onOptionsItemSelected(item);

@@ -10,24 +10,21 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
 
 
 public class UrenIngevenActivity extends AppCompatActivity {
@@ -56,7 +53,7 @@ public class UrenIngevenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ureningeven);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        userId = mAuth.getCurrentUser().getUid();
+        userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         db = FirebaseFirestore.getInstance();
 
@@ -79,60 +76,49 @@ public class UrenIngevenActivity extends AppCompatActivity {
         notificationChannel.setLightColor(Color.RED);
         notificationChannel.enableVibration(true);
         notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-        notificationManager.createNotificationChannel(notificationChannel);
+        Objects.requireNonNull(notificationManager).createNotificationChannel(notificationChannel);
 
-        indienen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                parsedDatum = datum.getText().toString();
-                parsedLes = les.getText().toString();
-                parsedNaam = naam.getText().toString();
-                parsedUren = uren.getText().toString();
-                if (v == indienen) {
-                    urenIngeven(parsedNaam, parsedLes, parsedUren, parsedDatum);
-                }
+        indienen.setOnClickListener(v -> {
+            parsedDatum = datum.getText().toString();
+            parsedLes = les.getText().toString();
+            parsedNaam = naam.getText().toString();
+            parsedUren = uren.getText().toString();
+            if (v == indienen) {
+                urenIngeven(parsedNaam, parsedLes, parsedUren, parsedDatum);
             }
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void urenIngeven(String naam, String les, String uren, String datum) {
         CollectionReference dbUren = db.collection("uren");
         final UurObject object = new UurObject(naam, les, uren, datum);
-        dbUren.add(object).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "urenIngeven: succes ");
-                Toast.makeText(UrenIngevenActivity.this, "De uren zijn opgeslagen", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UrenIngevenActivity.this, ProfileActivity.class);
-                UrenIngevenActivity.this.startActivity(intent);
+        dbUren.add(object).addOnSuccessListener(documentReference -> {
+            Log.d(TAG, "urenIngeven: succes ");
+            Toast.makeText(UrenIngevenActivity.this, "De uren zijn opgeslagen", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(UrenIngevenActivity.this, ProfileActivity.class);
+            UrenIngevenActivity.this.startActivity(intent);
 
 
-                Intent notifyIntent = new Intent(UrenIngevenActivity.this, ItemListActivity.class);
-                // Just a random request code /demonstration
-                int uniqueInt = (int) System.currentTimeMillis();
-                PendingIntent pendingIntent = PendingIntent.getActivity(UrenIngevenActivity.this, uniqueInt, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Intent notifyIntent = new Intent(UrenIngevenActivity.this, ItemListActivity.class);
+            // Just a random request code /demonstration
+            int uniqueInt = (int) System.currentTimeMillis();
+            PendingIntent pendingIntent = PendingIntent.getActivity(UrenIngevenActivity.this, uniqueInt, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-                NotificationManager notificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-                Notification notification = new Notification.Builder(UrenIngevenActivity.this)
-                        .setContentTitle("Workhours")
-                        .setContentText("Hours have been added!")
-                        .setSmallIcon(R.drawable.ic_verified)
-                        .setChannelId(channelId)
-                        .setContentIntent(pendingIntent)
-                        .build();
+            Notification notification = new Notification.Builder(UrenIngevenActivity.this)
+                    .setContentTitle("Workhours")
+                    .setContentText("Hours have been added!")
+                    .setSmallIcon(R.drawable.ic_verified)
+                    .setChannelId(channelId)
+                    .setContentIntent(pendingIntent)
+                    .build();
 
-                notificationManager.notify(notifyId, notification);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e(TAG, "Received an exception after trying to write data to db :  " + e.getMessage());
-            }
-        });
+            notificationManager.notify(notifyId, notification);
+        }).addOnFailureListener(e -> Log.e(TAG, "Received an exception after trying to write data to db :  " + e.getMessage()));
     }
 }
 

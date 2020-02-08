@@ -37,6 +37,14 @@
             android:textSize="30sp"
             android:id="@+id/login_password_input"
             android:inputType="textPassword"/>
+
+        <CheckBox
+            android:id="@+id/RememberLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/rememberLogin" />
         <Button
             android:id="@+id/login"
             android:layout_width="wrap_content"
@@ -46,5 +54,17 @@
             android:textColor="#fff"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"/>
+
+        <Button
+            android:id="@+id/resetPw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="#ff0000"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Reset password"
+            android:textColor="#fff" />
     </LinearLayout>
 </LinearLayout>
