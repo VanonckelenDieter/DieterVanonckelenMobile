@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,13 +42,16 @@ public class ProfileActivity extends AppCompatActivity {
             Email.setText(email);
         }
 
-        contact.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("plain/text");
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"d.vanonckelen@hotmail.be"});
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Vraag Diamonds App");
-            intent.putExtra(Intent.EXTRA_TEXT, "Beste Diamonds,");
-            startActivity(Intent.createChooser(intent, ""));
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("plain/text");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"d.vanonckelen@hotmail.be"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Vraag Diamonds App");
+                intent.putExtra(Intent.EXTRA_TEXT, "Beste Diamonds,");
+                startActivity(Intent.createChooser(intent, ""));
+            }
         });
     }
 
@@ -94,4 +98,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

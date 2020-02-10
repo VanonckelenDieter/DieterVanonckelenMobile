@@ -1,6 +1,7 @@
 package com.example.dietervanonckelenmobile;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -32,6 +33,10 @@ public class ItemDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         Log.i(TAG, "Items are created");
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Intent itemListIntent = new Intent(ItemDetailActivity.this, ItemListActivity.class);
+            startActivity(itemListIntent);
+        }
 
         uur = new UurObject();
         name = findViewById(R.id.nameR);

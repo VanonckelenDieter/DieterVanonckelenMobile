@@ -51,9 +51,9 @@ public class ItemListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+        setTitle("Overzicht van de uren");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setTitle("Overzicht van de uren");
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Log.i(TAG, "In landscape mode");
@@ -65,6 +65,7 @@ public class ItemListActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         getData();
         recyclerView = findViewById(R.id.item_list_id);
+        assert recyclerView != null;
         mAdapter = new SimpleItemRecyclerViewAdapter(this, urenList, mTwoPane);
         recyclerView.setAdapter(mAdapter);
         Log.d("TAG", "onCreate: overzicht activity rendered");
