@@ -65,6 +65,8 @@ public class LoginActivity extends MainActivity {
                                                      public void onComplete(@NonNull Task<Void> task) {
                                                          if (task.isSuccessful()) {
                                                              Log.d(TAG, "Email sent.");
+                                                             Toast.makeText(LoginActivity.this, "Rest link is send to your e-mail, also check SPAM folder.",
+                                                                     Toast.LENGTH_SHORT).show();
                                                          }
                                                      }
                                                  });

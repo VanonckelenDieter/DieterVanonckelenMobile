@@ -82,10 +82,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:background="#ff0000"
         android:clickable="true"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Uren indienen"
-        android:textColor="#fff" />
+        android:text="Uren indienen" />
 </LinearLayout>

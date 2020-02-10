@@ -37,8 +37,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:background="#ff0000"
-        android:textColor="#fff"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"/>
     <Button
@@ -46,8 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="I already have an account"
-        android:background="#ff0000"
-        android:textColor="#fff"
         android:layout_gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

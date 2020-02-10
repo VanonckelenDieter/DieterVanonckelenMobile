@@ -20,6 +20,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
     private TextView Email;
     private Button logout;
+    private Button contact;
     private static final String TAG = "Logging profileActivity";
 
 
@@ -30,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
         Email = findViewById(R.id.profileEmail);
         mAuth = FirebaseAuth.getInstance();
         logout = findViewById(R.id.Logout);
+        contact = findViewById(R.id.contact);
         user = mAuth.getCurrentUser();
         Log.d(TAG, "onCreate: profile activity rendered");
 
@@ -39,6 +41,14 @@ public class ProfileActivity extends AppCompatActivity {
             Email.setText(email);
         }
 
+        contact.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("plain/text");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"d.vanonckelen@hotmail.be"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Vraag Diamonds App");
+            intent.putExtra(Intent.EXTRA_TEXT, "Beste Diamonds,");
+            startActivity(Intent.createChooser(intent, ""));
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -50,8 +50,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:background="#ff0000"
-            android:textColor="#fff"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"/>
 
@@ -61,10 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="#ff0000"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Reset password"
-            android:textColor="#fff" />
+            android:text="Reset password" />
     </LinearLayout>
 </LinearLayout>

@@ -19,8 +19,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,7 +28,6 @@ import java.util.Objects;
 public class UrenIngevenActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
-    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private EditText naam;
     private EditText les;
@@ -52,7 +49,6 @@ public class UrenIngevenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ureningeven);
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         db = FirebaseFirestore.getInstance();
@@ -68,8 +64,8 @@ public class UrenIngevenActivity extends AppCompatActivity {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        String channelId = "some_channel_id";
-        CharSequence channelName = "Some Channel";
+        String channelId = "HoursId";
+        CharSequence channelName = "HoursChannel";
         int importance = NotificationManager.IMPORTANCE_LOW;
         NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
         notificationChannel.enableLights(true);

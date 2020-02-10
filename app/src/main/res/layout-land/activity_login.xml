@@ -54,9 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:background="#ff0000"
-            android:text="Login"
-            android:textColor="#fff" />
+            android:text="Login" />
 
         <Button
             android:id="@+id/resetPw"
@@ -64,8 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="#ff0000"
-            android:text="Reset password"
-            android:textColor="#fff" />
+            android:text="Reset password" />
     </LinearLayout>
 </LinearLayout>
